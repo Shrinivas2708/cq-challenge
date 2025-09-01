@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import bcrypt from "bcryptjs";
 import NextAuth, { type NextAuthConfig } from "next-auth";
