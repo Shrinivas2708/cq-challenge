@@ -5,6 +5,7 @@ import { TransformationConfig } from "@/types";
 
 import { AiMagicPanel } from "./ai-magic-panel";
 import { ImageBasicsPanel } from "./image-basics-panel";
+import { OverlaysPanel } from "./overlays-panel"; // Import the new panel
 
 type TransformPanelProps = {
   activeSection: SectionKey;
@@ -50,6 +51,22 @@ export function TransformPanel({
           return <>Video Basics</>;
         }
         break;
+
+      // --- This is the new section ---
+      case "overlays":
+        if (transforms.type === "IMAGE") {
+          return (
+            <OverlaysPanel
+              overlays={transforms.overlays || []}
+              onTransformChange={(newOverlays) =>
+                onTransformChange({ ...transforms, overlays: newOverlays })
+              }
+            />
+          );
+        }
+        return <p>Overlays are only available for images.</p>;
+      // --- End of new section ---
+
       case "ai":
         if (transforms.type === "IMAGE") {
           return (
@@ -62,8 +79,6 @@ export function TransformPanel({
           );
         }
         return <p>AI Magic is only available for images.</p>;
-      case "overlays":
-        return <p>Overlays & Effects</p>;
       case "enhancements":
         return <p>Enhancements</p>;
       case "audio":
@@ -78,7 +93,7 @@ export function TransformPanel({
   };
 
   return (
-    <div className="border flex h-full flex-col border-pink-300/30 dark:border-pink-200/15 max-md:min-h-32 md:w-1/4 rounded-xl p-6">
+    <div className="border flex h-full flex-col overflow-hidden border-pink-300/30 dark:border-pink-200/15 max-md:min-h-32 md:w-1/4 rounded-xl p-6">
       <div className="flex items-center justify-between pb-4 border-gray-300/30 dark:border-white/10">
         <div className="flex items-center gap-2">
           <h3 className="flex items-center gap-2 text-xs text-foreground/60">
@@ -86,8 +101,7 @@ export function TransformPanel({
           </h3>
         </div>
       </div>
-      {/* This div is now the scrollable container */}
-      <div className="flex-1 overflow-y-auto -mr-2 pr-2">
+      <div className="flex-1 overflow-y-auto -mr-6 pr-6">
         {renderPanelContent()}
       </div>
     </div>
