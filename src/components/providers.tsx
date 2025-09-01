@@ -1,8 +1,11 @@
-import {ThemeProvider as NextThemesProvider} from "next-themes";
+"use client";
 
-const Providers = ({children}: {children: React.ReactNode}) => {
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <SessionProvider>
       <NextThemesProvider
         attribute="class"
         defaultTheme="system"
@@ -11,7 +14,7 @@ const Providers = ({children}: {children: React.ReactNode}) => {
       >
         {children}
       </NextThemesProvider>
-    </>
+    </SessionProvider>
   );
 };
 

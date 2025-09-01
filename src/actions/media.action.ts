@@ -27,7 +27,7 @@ export const createMedia = async (
   const validationResult = await action({
     params,
     schema: createMediaSchema,
-    authorize: false, // TODO: after adding auth, it should be true
+    authorize: true
   });
 
   if (validationResult instanceof Error) {
