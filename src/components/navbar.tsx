@@ -1,8 +1,10 @@
+// src/components/navbar.tsx
+
 "use client"; // Make this a Client Component
 
 import { useSession } from "next-auth/react"; // Import the client-side hook
 
-import { LoginButton, SignOut } from "./auth-components";
+import { LoginButton, SignupButton, UserNav } from "./auth-components";
 import Logo from "./logo";
 import { ThemeSwitch } from "./theme-switch";
 import UploadButton from "./upload/upload-button";
@@ -15,13 +17,10 @@ const Navbar = () => {
       <Logo />
       <div className="flex items-center gap-2.5">
         <ThemeSwitch />
-        <UploadButton />
+        {/* The UploadButton will only be rendered if a session exists */}
+        {session?.user && <UploadButton />}
         <div className="flex min-w-8">
-          {session?.user ? (
-            <SignOut userName={session.user.name} />
-          ) : (
-            <LoginButton />
-          )}
+          {session?.user ? <UserNav user={session.user} /> : <div className="flex gap-2"><LoginButton /> <SignupButton /></div> }
         </div>
       </div>
     </nav>

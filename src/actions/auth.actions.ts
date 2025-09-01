@@ -1,39 +1,43 @@
+// src/actions/auth.actions.ts
+
 "use server";
 
 import bcrypt from "bcryptjs";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-import { db } from "@/db";
-import { users } from "@/db/schema/auth"; // Corrected import path
-import { signIn } from "@/lib/auth";
 import { AuthError } from "next-auth";
 
-// Type for our form state
+import { db } from "@/db";
+import { users } from "@/db/schema/auth";
+import { signIn } from "@/lib/auth";
+
+// This type remains the same
 type FormState = { error: string } | undefined;
 
+// The function signature is updated to not rely on prevState from useActionState
 export async function loginUser(
-  prevState: FormState,
+  _: FormState,
   formData: FormData
 ): Promise<FormState> {
   try {
     await signIn("credentials", formData);
+    // On success, signIn throws a redirect error, so this part is a fallback.
+    redirect("/");
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
           return { error: "Invalid email or password." };
         default:
-          return { error: "Something went wrong." };
+          return { error: "Something went wrong. Please try again." };
       }
     }
-    // This is required for redirects to work
+    // Re-throw any other errors
     throw error;
   }
 }
 
 export async function registerUser(
-  prevState: FormState,
+  _: FormState,
   formData: FormData
 ): Promise<FormState> {
   const name = formData.get("name") as string;
@@ -53,10 +57,8 @@ export async function registerUser(
       hashedPassword,
     });
   } catch (error) {
-    // This could be a unique constraint violation
     return { error: "User with this email already exists." };
   }
 
-  // After successful registration, redirect to login
   redirect("/login");
 }
