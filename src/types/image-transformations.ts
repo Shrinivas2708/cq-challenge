@@ -1,3 +1,5 @@
+// src/types/image-transformations.ts
+
 export type CropMode =
   | "maintain_ratio"
   | "pad_resize"
@@ -101,6 +103,7 @@ export type Enhancements = {
     offsetX?: number; // x
     offsetY?: number; // y
   };
+  // This is the corrected type definition
   background?: {
     type: "solid" | "blurred" | "dominant";
     color?: string; // for solid

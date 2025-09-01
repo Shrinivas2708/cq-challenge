@@ -4,8 +4,9 @@ import { type SectionKey } from "@/components/studio/dock";
 import { TransformationConfig } from "@/types";
 
 import { AiMagicPanel } from "./ai-magic-panel";
+import { EnhancementsPanel } from "./enhancements-panel";
 import { ImageBasicsPanel } from "./image-basics-panel";
-import { OverlaysPanel } from "./overlays-panel"; // Import the new panel
+import { OverlaysPanel } from "./overlays-panel";
 
 type TransformPanelProps = {
   activeSection: SectionKey;
@@ -51,8 +52,6 @@ export function TransformPanel({
           return <>Video Basics</>;
         }
         break;
-
-      // --- This is the new section ---
       case "overlays":
         if (transforms.type === "IMAGE") {
           return (
@@ -65,8 +64,21 @@ export function TransformPanel({
           );
         }
         return <p>Overlays are only available for images.</p>;
-      // --- End of new section ---
-
+      case "enhancements":
+        if (transforms.type === "IMAGE") {
+          return (
+            <EnhancementsPanel
+              transforms={transforms.enhancements || {}}
+              onTransformChange={(enhancementTransforms) =>
+                onTransformChange({
+                  ...transforms,
+                  enhancements: enhancementTransforms,
+                })
+              }
+            />
+          );
+        }
+        return <p>Enhancements are only available for images.</p>;
       case "ai":
         if (transforms.type === "IMAGE") {
           return (
@@ -79,8 +91,6 @@ export function TransformPanel({
           );
         }
         return <p>AI Magic is only available for images.</p>;
-      case "enhancements":
-        return <p>Enhancements</p>;
       case "audio":
         return <p>Audio</p>;
       default:
