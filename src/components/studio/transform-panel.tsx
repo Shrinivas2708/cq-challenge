@@ -1,5 +1,3 @@
-// src/components/studio/transform-panel.tsx
-
 import { type SectionKey } from "@/components/studio/dock";
 import { TransformationConfig } from "@/types";
 
@@ -7,6 +5,8 @@ import { AiMagicPanel } from "./ai-magic-panel";
 import { EnhancementsPanel } from "./enhancements-panel";
 import { ImageBasicsPanel } from "./image-basics-panel";
 import { OverlaysPanel } from "./overlays-panel";
+import { VideoAudioPanel } from "./video-audio-panel";
+import { VideoBasicsPanel } from "./video-basics-panel";
 
 type TransformPanelProps = {
   activeSection: SectionKey;
@@ -49,7 +49,14 @@ export function TransformPanel({
             />
           );
         } else if (transforms.type === "VIDEO") {
-          return <>Video Basics</>;
+          return (
+            <VideoBasicsPanel
+              transforms={transforms.basics || {}}
+              onTransformChange={(b) =>
+                onTransformChange({ ...transforms, basics: b })
+              }
+            />
+          );
         }
         break;
       case "overlays":
@@ -92,7 +99,17 @@ export function TransformPanel({
         }
         return <p>AI Magic is only available for images.</p>;
       case "audio":
-        return <p>Audio</p>;
+        if (transforms.type === "VIDEO") {
+          return (
+            <VideoAudioPanel
+              transforms={transforms.audio || {}}
+              onTransformChange={(audioTransforms) =>
+                onTransformChange({ ...transforms, audio: audioTransforms })
+              }
+            />
+          );
+        }
+        return <p>Audio controls are only available for videos.</p>;
       default:
         return (
           <div className="p-4 text-center text-gray-500">

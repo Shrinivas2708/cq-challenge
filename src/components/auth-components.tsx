@@ -1,15 +1,12 @@
-// src/components/auth-components.tsx
-
 "use client";
 
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useActionState, useState } from "react";
 import type { User } from "next-auth";
 
 import { registerUser } from "@/actions/auth.actions";
-// import { Avatar, AvatarFallback, AvatarImage } from "./";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -35,7 +32,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 const inputStyles =
   "dark:bg-transparent backdrop-blur-sm focus-visible:outline-none focus-visible:ring-0 border-pink-300/30 dark:border-pink-200/15 h-9";
 
-// This component remains the same
 function CredentialsForm() {
   const router = useRouter();
   const [error, setError] = useState<string | undefined>();
@@ -123,8 +119,6 @@ function CredentialsForm() {
     </Card>
   );
 }
-
-// This component remains the same
 export function LoginForm() {
   return (
     <div className="flex w-full max-w-sm flex-col items-center justify-center gap-4">
@@ -159,9 +153,8 @@ export function LoginForm() {
   );
 }
 
-// This component remains the same
 export function RegisterForm() {
-  const { useActionState } = require("react");
+
   const [formState, formAction] = useActionState(registerUser, undefined);
 
   return (
@@ -237,7 +230,6 @@ export function RegisterForm() {
   );
 }
 
-// This component remains the same
 export function LoginButton() {
   return (
     <Button
@@ -252,7 +244,6 @@ export function SignupButton() {
   return (
             <Button
               asChild
-              // size="lg"
               className="cursor-pointer rounded-full bg-gradient-to-bl from-pink-400 to-pink-800 px-4   text-white"
             >
               <Link href="/register">Get Started</Link>
@@ -260,7 +251,6 @@ export function SignupButton() {
   );
 }
 
-// NEW UserNav component to replace SignOut
 export function UserNav({ user }: { user: User }) {
   return (
     <DropdownMenu>

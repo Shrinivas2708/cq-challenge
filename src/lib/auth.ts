@@ -1,19 +1,16 @@
-// src/lib/auth.ts
-
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
 import { authConfig } from "../../auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  ...authConfig, // Spread the base config
+  ...authConfig,
   adapter: DrizzleAdapter(db),
   session: {
     strategy: "jwt",
   },
   callbacks: {
-    ...authConfig.callbacks, // Spread the authorized callback from the base config
-    // Add JWT and session callbacks here
+    ...authConfig.callbacks,
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
@@ -22,5 +19,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 });
-export const GET = handlers.GET
-export const POST = handlers.POST
+export const GET = handlers.GET;
+export const POST = handlers.POST;

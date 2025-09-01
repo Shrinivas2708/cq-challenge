@@ -42,7 +42,6 @@ export default async function Home() {
 }
 
 async function MediaGrid({ session }: { session: Session | null }) {
-  // If user is not logged in, show a prompt to log in.
   if (!session?.user) {
     return (
       <div className="py-24 text-center">
@@ -59,7 +58,6 @@ async function MediaGrid({ session }: { session: Session | null }) {
     );
   }
 
-  // This part now only runs for logged-in users
   const result = await getAllMedia({ page: 1, pageSize: 50 });
 
   if (!result.success) {

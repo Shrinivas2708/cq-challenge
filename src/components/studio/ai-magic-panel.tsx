@@ -1,5 +1,3 @@
-// src/components/studio/ai-magic-panel.tsx
-
 import {
   Crop,
   Droplet,
@@ -83,10 +81,9 @@ export function AiMagicPanel({
   };
 
   return (
-    // The overflow and height classes have been removed from this div
+
     <div className="flex flex-col space-y-1">
       <Accordion type="multiple" defaultValue={["background"]}>
-        {/* --- Background Section --- */}
         <AccordionItem value="background">
           <AccordionTrigger className="py-3 cursor-pointer">
             <div className="flex items-center gap-2">
@@ -133,8 +130,6 @@ export function AiMagicPanel({
             )}
           </AccordionContent>
         </AccordionItem>
-
-        {/* --- AI Editing Section --- */}
         <AccordionItem value="ai-editing">
           <AccordionTrigger className="py-3 cursor-pointer">
             <div className="flex items-center gap-2">
@@ -161,8 +156,6 @@ export function AiMagicPanel({
             </div>
           </AccordionContent>
         </AccordionItem>
-
-        {/* --- Shadows & Lighting Section --- */}
         <AccordionItem value="shadows-lighting">
           <AccordionTrigger className="py-3 cursor-pointer">
             <div className="flex items-center gap-2">
@@ -181,8 +174,6 @@ export function AiMagicPanel({
             </div>
           </AccordionContent>
         </AccordionItem>
-
-        {/* --- AI Generation Section --- */}
         <AccordionItem value="ai-generation">
           <AccordionTrigger className="py-3 cursor-pointer">
             <div className="flex items-center gap-2">
@@ -205,8 +196,6 @@ export function AiMagicPanel({
               </div>
           </AccordionContent>
         </AccordionItem>
-
-        {/* --- AI Cropping Section --- */}
         <AccordionItem value="ai-cropping">
           <AccordionTrigger className="py-3 cursor-pointer">
             <div className="flex items-center gap-2">

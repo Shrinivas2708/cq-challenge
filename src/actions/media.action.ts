@@ -20,6 +20,7 @@ import {handleError} from "@/lib/handlers";
 import action from "@/lib/handlers/action";
 import {PaginatedSearchParamsSchema} from "@/lib/schema";
 import {PaginatedSearchParams} from "@/types";
+import { ActionResponse, ErrorResponse } from "@/types/global";
 
 export const createMedia = async (
   params: CreateMediaParams

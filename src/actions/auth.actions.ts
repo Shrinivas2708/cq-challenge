@@ -1,5 +1,3 @@
-// src/actions/auth.actions.ts
-
 "use server";
 
 import bcrypt from "bcryptjs";
@@ -10,17 +8,14 @@ import { db } from "@/db";
 import { users } from "@/db/schema/auth";
 import { signIn } from "@/lib/auth";
 
-// This type remains the same
 type FormState = { error: string } | undefined;
 
-// The function signature is updated to not rely on prevState from useActionState
 export async function loginUser(
   _: FormState,
   formData: FormData
 ): Promise<FormState> {
   try {
     await signIn("credentials", formData);
-    // On success, signIn throws a redirect error, so this part is a fallback.
     redirect("/");
   } catch (error) {
     if (error instanceof AuthError) {
@@ -31,7 +26,6 @@ export async function loginUser(
           return { error: "Something went wrong. Please try again." };
       }
     }
-    // Re-throw any other errors
     throw error;
   }
 }
@@ -56,7 +50,7 @@ export async function registerUser(
       email,
       hashedPassword,
     });
-  } catch (error) {
+  } catch {
     return { error: "User with this email already exists." };
   }
 

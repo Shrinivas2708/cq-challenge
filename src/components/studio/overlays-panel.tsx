@@ -1,5 +1,3 @@
-// src/components/studio/overlays-panel.tsx
-
 "use client";
 
 import { Layers, Plus, Text, Trash2 } from "lucide-react";
@@ -95,7 +93,6 @@ export function OverlaysPanel({
               ) : (
                 <Accordion type="multiple" className="w-full space-y-2">
                   {overlays.map((overlay, index) => {
-                    // Using a switch statement for type safety
                     switch (overlay.type) {
                       case "text":
                         return (
